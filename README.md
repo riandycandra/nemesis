@@ -32,16 +32,16 @@ Stay tuned
 
 ### 1. Prepare the Database
 
-Download and unzip the raw dataset, then convert it to SQLite:
+Follow these steps to generate SQLite data locally:
 
-```bash
-# Convert raw jsonl data / sql data
-
-# Place the resulting .SQL file at the expected path:
-mv dashboard.sqlite backend/data/dashboard.sqlite
-
-
-```
+1. Download and unzip the raw dataset from the links in the [Downloads](#downloads) section.
+2. Move `.csv`, `.json`, and `.jsonl` files into `./backend/dataset`.
+3. Initialize the database:
+   ```bash
+   cd backend
+   npm install
+   npm run db:reset
+   ```
 
 The backend expects the database at `backend/data/dashboard.sqlite`.
 
@@ -66,6 +66,21 @@ python3 -m http.server 8080
 Then open `http://127.0.0.1:8080` in your browser.
 
 The frontend is preconfigured to call the backend at `http://127.0.0.1:3000/api`.
+
+### 3. Run with Docker
+
+You can run both services with Docker Compose:
+
+```bash
+docker compose up -d --build
+```
+
+- Frontend: `http://localhost:8080`
+- Backend API: `http://localhost:3000/api`
+
+Notes:
+- Complete **Step 1** first so `backend/data/dashboard.sqlite` exists.
+- Compose default sets `CORS_ORIGIN=http://localhost:8080` (override with env var if needed).
 
 ## Notes
 
